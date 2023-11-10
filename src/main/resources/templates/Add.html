@@ -23,19 +23,15 @@
 	<h2 class="display-4 mb-4" th:text="${title}"></h2>
 	<p th:text="${msg}"></p>
 	<form method="post" action="/" th:object="${formModel}">
-		<style>.err {color: red}</style>
+<!--		<style>.err {color: red}</style>-->
 		<div class="mb-3">
 			<label for="name" class="form-label">時間</label>
 			<div class="row">
 				<div class="col-6">
 					<input type="datetime-local" class="form-control" name="time" th:value="*{start}" th:errorclass="err">
-					<div th:if="${#fields.hasErrors('start')}" th:errors="*{start}" th:errorclass="err">
-					</div>
 				</div>
 				<div class="col-6">
 					<input type="datetime-local" class="form-control" name="time" th:value="*{end}" th:errorclass="err">
-					<div th:if="${#fields.hasErrors('end')}" th:errors="*{end}" th:errorclass="err">
-					</div>
 				</div>
 			</div>	
 		</div>
@@ -44,8 +40,6 @@
 					<div class="mb-3">
 						<label for="name" class="form-label">タイトル</label>
 						<input type="text" class="form-control" name="title" th:value="*{title}" th:errorclass="err">
-						<div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:errorclass="err">
-						</div>
 					</div>
 				</div>
 			
@@ -54,16 +48,12 @@
 						<label for="name" class="form-label">色</label>
 						<div class="h-auto">
 							<input type="color" class="form-control" name="color" th:value="*{color}" th:errorclass="err">
-							<div th:if="${#fields.hasErrors('color')}" th:errors="*{color}" th:errorclass="err">
-							</div>
 						</div>
 					</div>
 				</div>
 		<div class="mb-3">
 			<label for="memo" class="form-label">内容</label>
 			<textarea class="form-control" th:errorclass="err" name="memo" th:text="*{memo}"></textarea>
-			<div th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}" th:errorclass="err">
-			</div>
 		</div>
 <div class="mb-3">
 	<div class="text-center">
