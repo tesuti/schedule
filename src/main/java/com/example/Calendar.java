@@ -8,9 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "people")
-public class Person {
-
+@Table(name = "calendar")
+public class Calendar {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
