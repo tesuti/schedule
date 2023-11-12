@@ -8,8 +8,8 @@ import ch.qos.logback.core.model.Model;
 
 @Controller
 public class CalendarController {
-	 @RequestMapping(path = "/calendar", method = RequestMethod.GET)
-	    String index(Model model) {
-	        return "calendar/index";
-	    }
+	@RequestMapping(path = "/calendar", method = RequestMethod.GET)
+	String index(Model model) {
+		return "calendar/index";
+	}
 }

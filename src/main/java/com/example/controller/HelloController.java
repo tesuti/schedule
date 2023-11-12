@@ -18,46 +18,51 @@ import jakarta.transaction.Transactional;
 
 @Controller
 public class HelloController {
-	  @Autowired
-	  PersonRepository repository;
+	@Autowired
+	PersonRepository repository;
 
 	//カレンダーデータをすべて表示
-	  @RequestMapping("/create")
-	  public ModelAndView index(
-	      @ModelAttribute("formModel") Person Person,
-	      ModelAndView mav) {
+	@RequestMapping("/create")
+	public ModelAndView index(
+			@ModelAttribute("formModel") Person Person,
+			ModelAndView mav) {
 
-	    List<Person> list = repository.findAll();
-	    mav.addObject("data",list);
-	    return mav;
-	  }
-	  
-	  //カレンダーを登録
-	  @RequestMapping(value = "/create", method = RequestMethod.POST)
-	  @Transactional
-	  public ModelAndView form(
-		      @ModelAttribute("formModel") Person Person, 
-		      ModelAndView mav) {
-		  repository.saveAndFlush(Person);
-		  return new ModelAndView("redirect:/create");
-	  }
-	  //IDを取得
-	  @RequestMapping(value="/edit/{id}",method= RequestMethod.GET )
-	  public ModelAndView edit(@ModelAttribute Person Person,
-			  @PathVariable int id, ModelAndView mav) {
-		  Optional<Person> data = repository.findById((long)id);
-		  mav.addObject("formModel", data.get());
-		  return mav;
-		  
-	  }
-	  
-	  @RequestMapping(value="/edit",method= RequestMethod.POST )
-	  @Transactional
-	  public ModelAndView update(@ModelAttribute Person Person,
-			  ModelAndView mav) {
-		  repository.saveAndFlush(Person);
-		  return new ModelAndView("redirect:/");
-	  }
+		List<Person> list = repository.findAll();
+		mav.addObject("data", list);
+		return mav;
+	}
 
+	//カレンダーを登録
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@Transactional
+	public ModelAndView form(
+			@ModelAttribute("formModel") Person Person,
+			ModelAndView mav) {
+		repository.saveAndFlush(Person);
+		return new ModelAndView("redirect:/create");
+	}
 
+	//IDを取得
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	public ModelAndView edit(@ModelAttribute Person Person,
+			@PathVariable int id, ModelAndView mav) {
+		Optional<Person> data = repository.findById((long) id);
+		mav.addObject("formModel", data.get());
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@Transactional
+	public ModelAndView update(@ModelAttribute Person Person,
+			ModelAndView mav) {
+		repository.saveAndFlush(Person);
+		return new ModelAndView("redirect:/");
+	}
+
+	//画面遷移用の処理
+	@RequestMapping(value = "/index")
+	public String index() {
+		return "index";
+	}
 }
