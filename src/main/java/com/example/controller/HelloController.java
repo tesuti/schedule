@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.Person;
@@ -62,4 +63,20 @@ public class HelloController {
 		return new ModelAndView("redirect:/");
 	}
 
+	//IDを取得
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public ModelAndView delete(@PathVariable int id, ModelAndView mav) {
+		mav.setViewName("delete");
+		Optional<Person> data = repository.findById((long) id);
+		mav.addObject("formModel", data.get());
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@Transactional
+	public ModelAndView remove(@RequestParam long id, ModelAndView mav) {
+		repository.deleteById(id);
+		return new ModelAndView("redirect:/");
+	}
 }
