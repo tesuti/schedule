@@ -22,7 +22,10 @@ public class Event {
 	private String end;
 
 	//予定の詳細
+	@Column
 	private String body;
+
+	@Column(nullable = false)
 	private String backgroundColor;
 
 	public void setId(long id) {
@@ -37,12 +40,12 @@ public class Event {
 		this.title = title;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
-	}
-
 	public String getBody() {
 		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
 	}
 
 	public String getStart() {

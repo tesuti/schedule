@@ -16,6 +16,7 @@ import com.example.repository.PersonRepository;
 
 import jakarta.transaction.Transactional;
 
+@RequestMapping("/")
 @Controller
 public class HelloController {
 	@Autowired
@@ -46,6 +47,7 @@ public class HelloController {
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView edit(@ModelAttribute Person Person,
 			@PathVariable int id, ModelAndView mav) {
+		mav.setViewName("edit");
 		Optional<Person> data = repository.findById((long) id);
 		mav.addObject("formModel", data.get());
 		return mav;
@@ -60,9 +62,4 @@ public class HelloController {
 		return new ModelAndView("redirect:/");
 	}
 
-	//画面遷移用の処理
-	@RequestMapping(value = "/index")
-	public String index() {
-		return "index";
-	}
 }

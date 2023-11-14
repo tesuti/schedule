@@ -8,8 +8,14 @@
       rel="stylesheet">
 </head>
 <body class="container">
-<!--  <h1 class="display-4 mb-4" th:text="${title}"></h1>-->
-<!--  <p th:text="${msg}"></p>-->
+	<div class="py-sm-3">
+		<div class="d-flex flex-row">
+			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-3">Calender</div>
+			<div class="flex-fill bg-secondary text-white border text-end fs-1">　　　　予定一覧</div>
+			<div class="flex-fill bg-secondary text-white border text-end fs-1">　　　　カレンダー</div>
+			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-3">ユーザ名</div>
+		</div>
+	</div>
   
   	<form method="post" action="/create" th:object="${formModel}">
 <!--		<style>. {color: red}</style>-->
@@ -19,12 +25,10 @@
 				<div class="col-6">
 					<input type="datetime-local" class="form-control" name="start" th:value="*{start}" >
 <!--					<div th:if="${#fields.hasors('start')}" th:ors="*{start}" th:orclass="">-->
-					</div>
 				</div>
 				<div class="col-6">
 					<input type="datetime-local" class="form-control" name="end" th:value="*{end}">
 <!--					<div th:if="${#fields.hasors('end')}" th:ors="*{end}" th:orclass="">-->
-					</div>
 				</div>
 			</div>	
 		</div>
@@ -32,9 +36,8 @@
 				<div class="col-6">
 					<div class="mb-3">
 						<label for="name" class="form-label">タイトル</label>
-						<input type="text" class="form-control" name="title" th:value="*{title}" >
-<!--						<div th:if="${#fields.hasors('title')}" th:ors="*{title}" th:orclass="">-->
-						</div>
+						<input type="text" class="form-control" name="title" th:value="*{title}">
+						<!--						<div th:if="${#fields.hasors('title')}" th:ors="*{title}" th:orclass="">-->
 					</div>
 				</div>
 			
@@ -42,21 +45,19 @@
 					<div class="mb-3">
 						<label for="name" class="form-label">色</label>
 						<div class="h-auto">
-							<input type="backgroundColor" class="form-control" name="backgroundColor" 
-									th:value="*{backgroundColor}" >
-<!--							<div th:if="${#fields.hasors('backgroundColor')}" th:ors="*{backgroundColor}" th:orclass="">-->
-							</div>
+							<input type="backgroundColor" class="form-control" name="backgroundColor" th:value="*{backgroundColor}">
+							<!--							<div th:if="${#fields.hasors('backgroundColor')}" th:ors="*{backgroundColor}" th:orclass="">-->
 						</div>
 					</div>
 				</div>
+			</div>
 		<div class="mb-3">
 			<label for="body" class="form-label">内容</label>
 			<textarea class="form-control"  name="body" th:text="*{body}"></textarea>
 <!--			<div th:if="${#fields.hasors('body')}" th:ors="*{body}" th:orclass="">-->
-			</div>
 		</div>
 <div class="mb-3">
-<!--	予定登録-->
+<!--	予定登録ボタン-->
 	<div class="text-center">
 		<button class="btn btn-primary" th:href="@{/index}" onclick="location.href='http://localhost:8080/'">カレンダー表</button>
 			<input type="submit"  class="btn btn-primary" value="Create">
