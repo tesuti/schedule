@@ -88,11 +88,13 @@ public class HelloController {
 	}
 
 	//IDを取得
-	@RequestMapping(value = "/schedulelist/{id}", method = RequestMethod.GET)
-	public ModelAndView schedulelist(@PathVariable int id, ModelAndView mav) {
-		mav.setViewName("schedulelist");
-		Optional<Person> data = repository.findById((long) id);
-		mav.addObject("formModel", data.get());
+	@RequestMapping("/schedulelist")
+	public ModelAndView schedule(
+			@ModelAttribute("formModel") Person Person,
+			ModelAndView mav) {
+
+		List<Person> list = repository.findAll();
+		mav.addObject("data", list);
 		return mav;
 	}
 

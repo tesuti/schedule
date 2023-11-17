@@ -20,44 +20,31 @@
 	<h2 class="display-4 mb-4" th:text="${title}"></h2>
 	<p th:text="${msg}"></p>
 
-	<form method="get" action="?" th:object="${formModel}">
-		<input type="hidden" name="id" th:value="*{id}" />
+	<form method="post" action="/schedulelist" th:object="${formModel}">
 		<style>
 			.err {
 				color: red
 			}
 		</style>
-		<div class="mb-3">
-			<label for="name" class="form-label">時間</label>
-			<div class="row">
-				<div class="col-6">
-					<input type="datetime-local" class="form-control" name="start" th:value="*{start}">
-					<!--					<div th:if="${#fields.hasors('start')}" th:ors="*{start}" th:orclass="">-->
-				</div>
-				<div class="col-6">
-					<input type="datetime-local" class="form-control" name="end" th:value="*{end}">
-					<!--					<div th:if="${#fields.hasors('end')}" th:ors="*{end}" th:orclass="">-->
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="mb-3">
-				<div class="col-6">
-					<label for="name" class="form-label">タイトル</label>
-					<input type="text" class="form-control" name="title" th:value="*{title}">
-				</div>
-			</div>
-			<div class="mb-3">
-				<label for="memo" class="form-label">内容</label>
-				<textarea class="form-control" th:errorclass="err" name="body" th:text="*{body}"></textarea>
-			</div>
-
-			<div class="mb-3 text-end">
-				<button type="submit" formaction="http://localhost:8080/edit/id/" name="edit" class="btn btn-primary">編集</button>
-				<button type="submit" formaction="http://localhost:8080/delete/{id}/" name="delete" class="btn btn-danger">削除</button>
-				<!--				<button type="submit" th:attr="onclick='location.href='/edit/id'" name="edit" class="btn btn-primary" value="編集">-->
-				<!--				<button type="submit" th:attr="onclick='location.href='/delete/id'" name="delete" class="btn btn-danger" value="削除">-->
-			</div>
+		<table class="table">
+	<thead>
+      <tr><th>ID</th><th>title</th><th>body</th><th>backgroundColor</th><th>start</th><th>end</th></tr>
+    </thead>
+			<tbody>
+				<tr th:each="item : ${data}">
+					<td th:value="${item.id}"></td>
+					<td th:value="${item.title}"></td>
+					<td th:value="${item.body}"></td>
+					<td th:value="${item.backgroundColor}"></td>
+					<td th:value="${item.start}"></td>
+					<td th:value="${item.end}"></td>
+					<th>
+						<button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''" class="btn btn-primary">編集</button>
+						<button th:attr="onclick='location.href=\'/delete/' + ${item.id} + '\''" class="btn btn-danger">削除</button>
+					</th>
+				</tr>
+			</tbody>
+		</table>
 </body>
 
 </html>
