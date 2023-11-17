@@ -32,12 +32,12 @@
     </thead>
 			<tbody>
 				<tr th:each="item : ${data}">
-					<td th:value="${item.id}"></td>
-					<td th:value="${item.title}"></td>
-					<td th:value="${item.body}"></td>
-					<td th:value="${item.backgroundColor}"></td>
-					<td th:value="${item.start}"></td>
-					<td th:value="${item.end}"></td>
+					<td th:text="${item.id}"></td>
+					<td th:text="${item.title}"></td>
+					<td th:text="${item.body}"></td>
+					<td th:text="${item.backgroundColor}"></td>
+					<td th:text="${item.start}"></td>
+					<td th:text="${item.end}"></td>
 					<th>
 						<button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''" class="btn btn-primary">編集</button>
 						<button th:attr="onclick='location.href=\'/delete/' + ${item.id} + '\''" class="btn btn-danger">削除</button>
