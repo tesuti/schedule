@@ -1,32 +1,39 @@
 package com.example.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "people")
 public class Event {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private long id;
+
+	@Column(length = 50, nullable = false)
 	private String title;
 
-	/**
-	 * カレンダーの開始日付
-	 */
+	@Column(nullable = false)
 	private String start;
-	/**
-	 * カレンダーの終了日付
-	 */
-	private String end;
 
-	//予定の詳細
-	@Column
+	@Column(nullable = false)
+	private String end1;
+
+	@Column(nullable = false)
 	private String body;
 
 	@Column(nullable = false)
 	private String backgroundColor;
+
+	public long getId() {
+		return id;
+	}
 
 	public void setId(long id) {
 		this.id = id;
@@ -40,14 +47,6 @@ public class Event {
 		this.title = title;
 	}
 
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-
 	public String getStart() {
 		return start;
 	}
@@ -57,11 +56,11 @@ public class Event {
 	}
 
 	public String getEnd() {
-		return end;
+		return end1;
 	}
 
-	public void setEnd(String end) {
-		this.end = end;
+	public void setEnd(String end1) {
+		this.end1 = end1;
 	}
 
 	public String getBackgroundColor() {
@@ -70,5 +69,13 @@ public class Event {
 
 	public void setBackgroundColor(String backgroundColor) {
 		this.backgroundColor = backgroundColor;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
 	}
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>子どもマスタ｜子どものお小遣い帳アプリ</title>
+</head>
+<body>
+    <header></header>
+    <main>
+        <h1>子どもマスタ</h1>
+        <div th:text="${message}"></div>
+        <table border="1">
+            <tr>
+                <th>名前</th>
+                <th>生年月日</th>
+                <th>年齢</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="child: ${children}">
+                <td th:text="${child.name}"></td>
+                <td th:text="${child.birthday}"></td>
+                <td>TODO</td>
+                <th>
+                    <button th:attr="onclick='location.href=\'/children/edit?id=' + ${child.childId} + '\''">編集</button>
+                    <button th:attr="onclick='location.href=\'/children/remove?id=' + ${child.childId} + '\''">削除</button>
+                </th>
+            </tr>
+        </table>
+        <a href="/children/register">子どもを登録</a>
+    </main>
+    <footer>
+        <a href="/">トップページ</a>
+    </footer>
+</body>
+</html>

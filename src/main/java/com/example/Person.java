@@ -15,63 +15,66 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private long id;
-	
+
 	@Column(length = 50, nullable = false)
 	private String title;
-	
+
 	@Column(nullable = false)
 	private String start;
-	
+
 	@Column(nullable = false)
 	private String end1;
-	
+
 	@Column(nullable = false)
 	private String body;
-	
-	@Column(nullable = false)
+
 	private String backgroundColor;
-	
+
 	public long getId() {
 		return id;
 	}
-	
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	 public String getStart() {
+
+	public String getStart() {
 		return start;
 	}
+
 	public void setStart(String start) {
-		 this.start = start;
+		this.start = start;
 	}
 
-	 public String getEnd() {
+	public String getEnd() {
 		return end1;
 	}
+
 	public void setEnd(String end1) {
-		 this.end1 = end1;
+		this.end1 = end1;
 	}
 
 	public String getBackgroundColor() {
-		 return body;
+		return backgroundColor;
 	}
+
 	public void setBackgroundColor(String backgroundColor) {
-		 this.backgroundColor = backgroundColor;
+		this.backgroundColor = backgroundColor;
 	}
-	
+
 	public String getBody() {
-		 return body;
+		return body;
 	}
+
 	public void setBody(String body) {
-		 this.body = body;
+		this.body = body;
 	}
 }

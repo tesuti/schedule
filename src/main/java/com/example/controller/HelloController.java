@@ -52,8 +52,16 @@ public class HelloController {
 		Optional<Person> data = repository.findById((long) id);
 		mav.addObject("formModel", data.get());
 		return mav;
-
 	}
+
+	//	@RequestMapping(value = "/edit/{id}", params = "edit", method = RequestMethod.POST)
+	//	public ModelAndView edit(@ModelAttribute Person Person,
+	//			@PathVariable int id, ModelAndView mav) {
+	//		mav.setViewName("edit");
+	//		Optional<Person> data = repository.findById((long) id);
+	//		mav.addObject("formModel", data.get());
+	//		return mav;
+	//	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@Transactional
@@ -70,7 +78,6 @@ public class HelloController {
 		Optional<Person> data = repository.findById((long) id);
 		mav.addObject("formModel", data.get());
 		return mav;
-
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -79,4 +86,22 @@ public class HelloController {
 		repository.deleteById(id);
 		return new ModelAndView("redirect:/");
 	}
+
+	//IDを取得
+	@RequestMapping(value = "/schedulelist/{id}", method = RequestMethod.GET)
+	public ModelAndView schedulelist(@PathVariable int id, ModelAndView mav) {
+		mav.setViewName("schedulelist");
+		Optional<Person> data = repository.findById((long) id);
+		mav.addObject("formModel", data.get());
+		return mav;
+	}
+
+	//	@PostConstruct
+	//	//ダミーデータ
+	//	public void init() {
+	//		Person p1 = new Person();
+	//		p1.setTitle("aaaa");
+	//		p1.setBody("bbbb");
+	//		repository.saveAndFlush(p1);
+	//	}
 }
