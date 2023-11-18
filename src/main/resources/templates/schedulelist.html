@@ -19,8 +19,6 @@
 
 	<h2 class="display-4 mb-4" th:text="${title}"></h2>
 	<p th:text="${msg}"></p>
-
-	<form method="post" action="/schedulelist" th:object="${formModel}">
 		<style>
 			.err {
 				color: red
@@ -38,8 +36,8 @@
 					<td th:text="${item.backgroundColor}"></td>
 					<td th:text="${item.start}"></td>
 					<td th:text="${item.end}"></td>
-					<th>
-						<button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''" class="btn btn-primary">編集</button>
+					<th>						
+						<button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''">編集</button>
 						<button th:attr="onclick='location.href=\'/delete/' + ${item.id} + '\''" class="btn btn-danger">削除</button>
 					</th>
 				</tr>

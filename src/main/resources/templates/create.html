@@ -77,6 +77,10 @@
         <td th:text="${item.backgroundColor}"></td>
         <td th:text="${item.start}"></td>
         <td th:text="${item.end}"></td>
+       <th>
+          <button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''">編集</button>
+<!--          <button th:attr="onclick='location.href=\'/remove?id=' + ${item.id} + '\''">削除</button>-->
+       </th>
 <!--        <td th:text="${item.datetime}"></td>-->
       </tr>
     </tbody>
