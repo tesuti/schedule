@@ -16,7 +16,7 @@
 			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-3">ユーザ名</div>
 		</div>
 	</div>
-	<form method="post" action="/edit" th:object="${formModel}">
+	<form method="post" th:action="@{/edit}" th:object="${formModel}">
 		<input type="hidden" name="id" th:value="*{id}" />
 		<!--		<style>. {color: red}</style>-->
 		<div class="mb-3">

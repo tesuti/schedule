@@ -14,7 +14,7 @@
 			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-3">ユーザ名</div>
 		</div>
 	</div>
-	<form method="post" action="/delete" th:object="${formModel}">
+	<form method="post" th:action="@{/delete}" th:object="${formModel}">
 		<input type="hidden" name="id" th:value="*{id}" />
 		<div class="mb-3 py-sm-3 text-center">
 			<h1 class="fs-1">本当に削除しますか？</h1>

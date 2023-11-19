@@ -17,7 +17,7 @@
 		</div>
 	</div>
   
-	<form method="post" action="/create" th:object="${formModel}">
+<form method="post" th:action="@{/create}" th:object="${formModel}">
 		<!--		<style>. {color: red}</style>-->
 		<div class="mb-3">
 			<label for="name" class="form-label">時間</label>
