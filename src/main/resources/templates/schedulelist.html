@@ -9,11 +9,11 @@
 
 <body class="container">
 	<div class="py-sm-3">
-		<div class="d-flex flex-row">
-			<div onclick="location.href='http://localhost:8080/'" class="flex-fill bg-secondary text-white border text-center fs-1 col-3">Calender</div>
-			<div onclick="location.href='http://localhost:8080/schedulelist/'" class="flex-fill bg-secondary text-white border text-end fs-1">　　　予定一覧</div>
-			<div onclick="location.href='http://localhost:8080/'" class="flex-fill bg-secondary text-white border text-end fs-1">　　　カレンダー</div>
-			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-3">ユーザ名</div>
+		<div class="row d-flex flex-row">
+			<div onclick="location.href='http://localhost:8080/'" class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">Calender</div>
+			<div onclick="location.href='http://localhost:8080/schedulelist/'" class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">予定一覧</div>
+			<div onclick="location.href='http://localhost:8080/'" class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">カレンダー</div>
+			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">ユーザー</div>
 		</div>
 	</div>
 
@@ -26,7 +26,7 @@
 		</style>
 		<table class="table">
 	<thead>
-      <tr><th>ID</th><th>title</th><th>body</th><th>backgroundColor</th><th>start</th><th>end</th></tr>
+      <tr><th>ID</th><th>タイトル</th><th>予定内容</th><th>色</th><th>開始</th><th>終了</th><th></th></tr>
     </thead>
 			<tbody>
 				<tr th:each="item : ${data}">
@@ -36,8 +36,8 @@
 					<td th:text="${item.backgroundColor}"></td>
 					<td th:text="${item.start}"></td>
 					<td th:text="${item.end}"></td>
-					<th>						
-						<button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''">編集</button>
+					<th class="text-end">						
+						<button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''" class="btn btn-primary">編集</button>
 						<button th:attr="onclick='location.href=\'/delete/' + ${item.id} + '\''" class="btn btn-danger">削除</button>
 					</th>
 				</tr>
