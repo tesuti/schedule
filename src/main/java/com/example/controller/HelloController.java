@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.Person;
 import com.example.repository.PersonRepository;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 
 @RequestMapping("/")
@@ -89,5 +90,26 @@ public class HelloController {
 		mav.addObject("data", list);
 		return mav;
 	}
+	  @PostConstruct
+	  public void init(){
+	    // １つ目のダミーデータ作成
+	    Person p1 = new Person();
+	    p1.setId(1);
+	    p1.setTitle("ランニング");
+	    p1.setBody("公園を3周する");
+	    p1.setBackgroundColor("red");
+	    p1.setStart("2023-11-21T13:29");
+	    p1.setEnd("2023-11-21T15:29");
+	    repository.saveAndFlush(p1);
+	    // ２つ目のダミーデータ作成
+	    Person p2 = new Person();
+	    p2.setId(2);
+	    p2.setTitle("旅行");
+	    p2.setBody("京都巡り");
+	    p2.setBackgroundColor("blue");
+	    p2.setStart("2023-11-12T13:29");
+	    p2.setEnd("2023-11-18T13:29");
+	    repository.saveAndFlush(p2);
 
+	  }
 }
