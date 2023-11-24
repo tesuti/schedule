@@ -47,24 +47,37 @@
 </head>
 
 <body class="container">
-	<div class="py-sm-3">
-		<div class="row d-flex flex-row">
-			<div onclick="location.href='http://localhost:8080'" class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">Calender</div>
-			<div onclick="location.href='http://localhost:8080/schedulelist'" class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">予定一覧</div>
-			<div onclick="location.href='http://localhost:8080'" class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">カレンダー</div>
-			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">ユーザー</div>
+	<div class="">
+		<div class="py-sm-3">
+			<div class="row d-flex flex-row">
+				<div onclick="location.href='http://localhost:8080'"
+					class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">Calender</div>
+				<div onclick="location.href='http://localhost:8080/schedulelist'"
+					class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">予定一覧</div>
+				<div onclick="location.href='http://localhost:8080'"
+					class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">カレンダー</div>
+				<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">ユーザー</div>
+			</div>
 		</div>
-	</div>
-	<div id='calendar'>
-	</div>
-	<div class="btn btn-primary position-sticky">
-		<a onclick="location.href='http://localhost:8080/create'">予定登録</a>
+		<div id='calendar'>
+		</div>
+		<button class="create_btn btn btn-primary" onclick="location.href='http://localhost:8080/create'">＋</button>
 	</div>
 </body>
 <style>
 	#calendar {
 		max-width: 900px;
 		margin: auto;
+	}
+
+	.create_btn {
+		position: fixed;
+		bottom: 5%;
+		right: 10%;
+		font-size:1.5rem;
+		font-weight:1000;
+		border-radius:30px;
+		padding: 10px 18px;
 	}
 </style>
 

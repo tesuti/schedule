@@ -25,9 +25,17 @@
 			}
 		</style>
 		<table class="table">
-	<thead>
-      <tr><th>ID</th><th>タイトル</th><th>予定内容</th><th>色</th><th>開始</th><th>終了</th><th></th></tr>
-    </thead>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>タイトル</th>
+					<th>予定内容</th>
+					<th>色</th>
+					<th>開始</th>
+					<th>終了</th>
+					<th></th>
+				</tr>
+			</thead>
 			<tbody>
 				<tr th:each="item : ${data}">
 					<td th:text="${item.id}"></td>
@@ -36,13 +44,26 @@
 					<td th:text="${item.backgroundColor}"></td>
 					<td th:text="${item.start}"></td>
 					<td th:text="${item.end}"></td>
-					<th class="text-end">						
-						<button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''" class="btn btn-primary">編集</button>
-						<button th:attr="onclick='location.href=\'/delete/' + ${item.id} + '\''" class="btn btn-danger">削除</button>
+					<th class="text-end">
+						<button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''"
+							class="btn btn-primary">編集</button>
+						<button th:attr="onclick='location.href=\'/delete/' + ${item.id} + '\''"
+							class="btn btn-danger">削除</button>
 					</th>
 				</tr>
 			</tbody>
 		</table>
+		<button class="create_btn btn btn-primary" onclick="location.href='http://localhost:8080/create'">＋</button>
 </body>
-
+<style>
+		.create_btn {
+		position: fixed;
+		bottom: 5%;
+		right: 10%;
+		font-size:1.5rem;
+		font-weight:1000;
+		border-radius:30px;
+		padding: 10px 18px;
+	}
+</style>
 </html>
