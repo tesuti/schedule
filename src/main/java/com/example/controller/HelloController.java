@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.Person;
 import com.example.repository.PersonRepository;
+import com.example.search.CalendarService;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
@@ -24,6 +25,9 @@ public class HelloController {
 	@Autowired
 	PersonRepository repository;
 
+	@Autowired
+	 private CalendarService calendarService;
+	
 	//カレンダーデータをすべて表示
 	@RequestMapping("/create")
 	public ModelAndView index(
@@ -80,16 +84,8 @@ public class HelloController {
 		return new ModelAndView("redirect:/");
 	}
 
-	//全件表示
-	@RequestMapping("/schedulelist")
-	public ModelAndView schedule(
-			@ModelAttribute("formModel") Person Person,
-			ModelAndView mav) {
 
-		List<Person> list = repository.findAll();
-		mav.addObject("data", list);
-		return mav;
-	}
+
 	  @PostConstruct
 	  public void init(){
 	    // １つ目のダミーデータ作成
@@ -110,6 +106,15 @@ public class HelloController {
 	    p2.setStart("2023-11-12T13:29");
 	    p2.setEnd("2023-11-18T13:29");
 	    repository.saveAndFlush(p2);
+	    
+	    Person p3 = new Person();
+	    p3.setId(3);
+	    p3.setTitle("旅行");
+	    p3.setBody("京都巡り");
+	    p3.setBackgroundColor("blue");
+	    p3.setStart("2023-11-21T13:29");
+	    p3.setEnd("2023-11-18T13:29");
+	    repository.saveAndFlush(p3);
 
 	  }
 }

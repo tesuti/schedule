@@ -10,5 +10,4 @@ import com.example.Person;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
 	public Optional<Person> findById(Long id);
-	//  public List<Person> findByTitle(String Title);
 }

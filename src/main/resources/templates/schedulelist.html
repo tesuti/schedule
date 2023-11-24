@@ -26,6 +26,15 @@
 		</style>
 		<table class="table">
 	<thead>
+		<form method="post" th:action="@{/schedulelist}" th:object="${formModel}">
+			<label>タイトル</label>
+			<input type="text" name="title" th:value="*{title}">
+			<label>開始時間</label>
+			<input type="text" name="start" th:value="*{start}">
+			<label>終了時間</label>
+			<input type="text" name="end" th:value="*{end}">
+			<input type="submit" value="検索">
+		</form>
       <tr><th>ID</th><th>title</th><th>body</th><th>backgroundColor</th><th>start</th><th>end</th></tr>
     </thead>
 			<tbody>
