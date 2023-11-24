@@ -9,11 +9,10 @@
 
 <body class="container">
 	<div class="py-sm-3">
-		<div class="d-flex flex-row">
-			<div onclick="location.href='http://localhost:8080/'" class="flex-fill bg-secondary text-white border text-center fs-1 col-3">Calender</div>
-			<div onclick="location.href='http://localhost:8080/schedulelist/'" class="flex-fill bg-secondary text-white border text-end fs-1">　　　予定一覧</div>
-			<div onclick="location.href='http://localhost:8080/'" class="flex-fill bg-secondary text-white border text-end fs-1">　　　カレンダー</div>
-			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-3">ユーザ名</div>
+	<div class="row d-flex flex-row">
+			<div class="flex-fill bs-light text-white  border text-center fs-1 col-xs-3 col-lg-3"><a  th:href="@{/schedulelist}" class="text-decoration-none text-secondary">予定一覧</a></div>
+			<div class="flex-fill bs-light text-white border text-center fs-1 col-xs-3 col-lg-3"><a  th:href="@{/}" class="text-decoration-none text-secondary">カレンダー</a></div>
+			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">ユーザ名</div>
 		</div>
 	</div>
 
@@ -28,30 +27,64 @@
 	<thead>
 		<form method="post" th:action="@{/schedulelist}" th:object="${formModel}">
 			<label>タイトル</label>
-			<input type="text" name="title" th:value="*{title}">
+			<input class="p-3 rounded-3 border border-secondary mb-3" type="text" name="title" th:value="*{title}">
+			<span>
 			<label>開始時間</label>
-			<input type="text" name="start" th:value="*{start}">
-			<label>終了時間</label>
-			<input type="text" name="end" th:value="*{end}">
-			<input type="submit" value="検索">
+			<input class="p-3 rounded-3 border border-secondary mb-3  " type="text" name="start" th:value="*{start}">
+			</span><label>終了時間</label>
+			<input class="p-3 rounded-3 border border-secondary mb-3" type="text" name="end" th:value="*{end}">
+			<span>
+			<input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="検索">
+			</span>
 		</form>
-      <tr><th>ID</th><th>title</th><th>body</th><th>backgroundColor</th><th>start</th><th>end</th></tr>
+      <tr><th>タイトル</th><th>内容</th><th>色</th><th>開始時間</th><th>終了時間</th></tr>
     </thead>
 			<tbody>
 				<tr th:each="item : ${data}">
-					<td th:text="${item.id}"></td>
 					<td th:text="${item.title}"></td>
 					<td th:text="${item.body}"></td>
 					<td th:text="${item.backgroundColor}"></td>
 					<td th:text="${item.start}"></td>
 					<td th:text="${item.end}"></td>
 					<th>						
-						<button th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''">編集</button>
+						<button class="btn btn-primary" th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''">編集</button>
 						<button th:attr="onclick='location.href=\'/delete/' + ${item.id} + '\''" class="btn btn-danger">削除</button>
 					</th>
 				</tr>
 			</tbody>
 		</table>
-</body>
+		<div>
+	<a th:href="@{/create}" class="p-1">
+	 <button class=" btn btn-primary fixed-button" >＋</button>
+	</a>
+</div>
 
+</body>
+<style>
+
+  body {
+    margin: 40px 10px;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+    
+  }
+
+  #calendar {
+    max-width: 900px;
+    margin:  auto;
+  }
+  
+
+.button a:hover:before {
+    width: 100%;
+    z-index: -1;
+}   
+ .fixed-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+
+</style>
 </html>

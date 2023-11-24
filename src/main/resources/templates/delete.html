@@ -15,11 +15,49 @@
 		</div>
 	</div>
 	<form method="post" th:action="@{/delete}" th:object="${formModel}">
-		<input type="hidden" name="id" th:value="*{id}" />
-		<div class="mb-3 py-sm-3 text-center">
-			<h1 class="fs-1">本当に削除しますか？</h1>
-			<div class="text-center">
-				<input type="submit" class="btn btn-primary" value="Delete"></input>
+<input type="hidden" name="id" th:value="*{id}" />
+		<div class="mb-3 py-sm-3 ">
+			<h1 class="fs-1 text-danger">本当に削除しますか？</h1>
+				<div class="mb-3">
+			<label for="name" class="form-label">時間</label>
+			<div class="row">
+				<div class="col-6">
+					<input type="datetime-local" class="form-control" name="start" th:value="*{start}"disabled>
+					<!--					<div th:if="${#fields.hasors('start')}" th:ors="*{start}" th:orclass="">-->
+				</div>
+				<div class="col-6">
+					<input type="datetime-local" class="form-control" name="end" th:value="*{end}"disabled>
+					<!--					<div th:if="${#fields.hasors('end')}" th:ors="*{end}" th:orclass="">-->
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-6">
+				<div class="mb-3">
+					<label for="name" class="form-label">タイトル</label>
+					<input type="text" class="form-control" name="title" th:value="*{title}"disabled>
+					<!--						<div th:if="${#fields.hasors('title')}" th:ors="*{title}" th:orclass="">-->
+				</div>
+			</div>
+	
+			<div class="col-6">
+				<div class="mb-3">
+					<label for="name" class="form-label">色</label>
+					<div class="h-auto">
+						<input type="backgroundColor" class="form-control" name="backgroundColor" th:value="*{backgroundColor}"disabled>
+						<!--							<div th:if="${#fields.hasors('backgroundColor')}" th:ors="*{backgroundColor}" th:orclass="">-->
+					</div>
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="body" class="form-label">内容</label>
+				<textarea class="form-control" name="body" th:text="*{body}"disabled></textarea>
+				<!--			<div th:if="${#fields.hasors('body')}" th:ors="*{body}" th:orclass="">-->
+			</div>
+			<div class="text-center d-flex justify-content-evenly">
+				<a th:href="@{/schedulelist}" class="">戻る</a>
+				<input type="submit" class="btn btn-danger" value="Delete"></input>
+				
 			</div>
 		</div>
 	</form>

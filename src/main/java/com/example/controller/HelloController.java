@@ -46,7 +46,7 @@ public class HelloController {
 			@ModelAttribute("formModel") Person Person,
 			ModelAndView mav) {
 		repository.saveAndFlush(Person);
-		return new ModelAndView("redirect:/create");
+		return new ModelAndView("redirect:/");
 	}
 
 	//IDを取得
@@ -65,7 +65,7 @@ public class HelloController {
 	public ModelAndView update(@ModelAttribute Person Person,
 			ModelAndView mav) {
 		repository.saveAndFlush(Person);
-		return new ModelAndView("redirect:/");
+		return new ModelAndView("redirect:/schedulelist");
 	}
 
 	//IDを取得
@@ -81,7 +81,7 @@ public class HelloController {
 	@Transactional
 	public ModelAndView remove(@RequestParam long id, ModelAndView mav) {
 		repository.deleteById(id);
-		return new ModelAndView("redirect:/");
+		return new ModelAndView("redirect:/schedulelist");
 	}
 
 
