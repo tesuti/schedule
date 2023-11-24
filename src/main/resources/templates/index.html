@@ -1,108 +1,71 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>カレンダー表</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
-<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
-<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
-<script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#calendar').fullCalendar({
-		  plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-      },
-		// ボタン文字列
-		buttonText: {
+	<title>カレンダー表</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<link rel='stylesheet' href='webjars/fullcalendar/3.5.1/dist/fullcalendar.css' />
+	
+	<script src="webjars/jquery/2.0.3/jquery.min.js"></script>
+	<script src='webjars/moment/2.19.1/min/moment.min.js'></script>
+	<script src='webjars/fullcalendar/3.5.1/dist/fullcalendar.js'></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#calendar').fullCalendar({
+				plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'],
+				header: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+				},
+				// ボタン文字列
+				buttonText: {
+					today: '今日',
+					month: '今月の予定',
+					week: '週',
+					day: '日'
+				},
+				// 月名称
+				monthNames: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+				// 月略称
+				monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+				// 曜日名称
+				dayNames: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
+				// 曜日略称
+				dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
 
-			today: '今日',
-			month: '今月の予定',
-			week: '週',
-			day: '日'
-		},
-		// 月名称
-		monthNames: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-		// 月略称
-		monthNamesShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-		// 曜日名称
-		dayNames: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
-		// 曜日略称
-		dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
-		
-	navLinks: true, // can click day/week names to navigate views
-      businessHours: true, // display business hours
-      editable: true,
-      events: {
-        url : '/api/event/all',
-      }
-    });
-  });
-</script>
-
+				navLinks: true, // can click day/week names to navigate views
+				businessHours: true, // display business hours
+				editable: true,
+				events: {
+					url: '/api/event/all',
+				}
+			});
+		});
+	</script>
 </head>
-<body>
-	ここにロゴ？
-  <div id='calendar'>
-	  
-  </div>
-<div class="button">
-	<a onclick="location.href='http://localhost:8080/create'">予定登録</a>
-	<a onclick="location.href='http://localhost:8080/'">カレンダー表</a>
-</div>
+
+<body class="container">
+	<div class="py-sm-3">
+		<div class="row d-flex flex-row">
+			<div onclick="location.href='http://localhost:8080'" class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">Calender</div>
+			<div onclick="location.href='http://localhost:8080/schedulelist'" class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">予定一覧</div>
+			<div onclick="location.href='http://localhost:8080'" class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">カレンダー</div>
+			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">ユーザー</div>
+		</div>
+	</div>
+	<div id='calendar'>
+	</div>
+	<div class="btn btn-primary position-sticky">
+		<a onclick="location.href='http://localhost:8080/create'">予定登録</a>
+	</div>
 </body>
 <style>
-
-  body {
-    margin: 40px 10px;
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
-    
-  }
-
-  #calendar {
-    max-width: 900px;
-    margin:  auto;
-  }
-  
-  .button a {
-    background: #eee;
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 20px auto;
-    max-width: 240px;
-    padding: 10px 25px;
-
-    color: #313131;
-    transition: 0.3s ease-in-out;
-    font-weight: 500;
-    z-index:0;
-}
-
-.button a:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    display: block;
-    background: #6bb6ff;
-    transition: .3s;
-    left:0;
-}
-.button a:hover {
-    color: #FFF;
-}
-.button a:hover:before {
-    width: 100%;
-    z-index: -1;
-}
-
+	#calendar {
+		max-width: 900px;
+		margin: auto;
+	}
 </style>
+
 </html>
