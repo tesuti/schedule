@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,14 +28,15 @@ public class HelloController {
 	PersonRepository repository;
 
 	@Autowired
-	 private CalendarService calendarService;
-	
-	//カレンダーデータをすべて表示
+	private CalendarService calendarService;
+
 	@RequestMapping("/create")
-	public ModelAndView index(
+	public ModelAndView create(
 			@ModelAttribute("formModel") Person Person,
 			ModelAndView mav) {
-
+		mav.setViewName("create");
+		//		mav.addObject("title", "aaa");
+		//		mav.addObject("msg", "bbb");
 		List<Person> list = repository.findAll();
 		mav.addObject("data", list);
 		return mav;
@@ -43,10 +46,23 @@ public class HelloController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView form(
-			@ModelAttribute("formModel") Person Person,
+			@ModelAttribute("formModel") @Validated Person Person,
+			BindingResult result,
 			ModelAndView mav) {
-		repository.saveAndFlush(Person);
-		return new ModelAndView("redirect:/");
+		ModelAndView res = null;
+		System.out.println(result.getFieldErrors());
+		if (!result.hasErrors()) {
+			repository.saveAndFlush(Person);
+			res = new ModelAndView("redirect:/");
+		} else {
+			mav.setViewName("create");
+			//			mav.addObject("title", "Hello");
+			//			mav.addObject("msg", "sorry, error is occurred...");
+			Iterable<Person> list = repository.findAll();
+			mav.addObject("datalist", list);
+			res = mav;
+		}
+		return res;
 	}
 
 	//IDを取得
@@ -58,7 +74,6 @@ public class HelloController {
 		mav.addObject("formModel", data.get());
 		return mav;
 	}
-
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@Transactional
@@ -84,37 +99,35 @@ public class HelloController {
 		return new ModelAndView("redirect:/schedulelist");
 	}
 
+	@PostConstruct
+	public void init() {
+		// １つ目のダミーデータ作成
+		Person p1 = new Person();
+		p1.setId(1);
+		p1.setTitle("ランニング");
+		p1.setBody("公園を3周する");
+		p1.setBackgroundColor("red");
+		p1.setStart("2023-11-21T13:29");
+		p1.setEnd("2023-11-21T15:29");
+		repository.saveAndFlush(p1);
+		// ２つ目のダミーデータ作成
+		Person p2 = new Person();
+		p2.setId(2);
+		p2.setTitle("旅行");
+		p2.setBody("京都巡り");
+		p2.setBackgroundColor("blue");
+		p2.setStart("2023-11-12T13:29");
+		p2.setEnd("2023-11-18T13:29");
+		repository.saveAndFlush(p2);
 
+		Person p3 = new Person();
+		p3.setId(3);
+		p3.setTitle("旅行");
+		p3.setBody("京都巡り");
+		p3.setBackgroundColor("blue");
+		p3.setStart("2023-11-21T13:29");
+		p3.setEnd("2023-11-18T13:29");
+		repository.saveAndFlush(p3);
 
-	  @PostConstruct
-	  public void init(){
-	    // １つ目のダミーデータ作成
-	    Person p1 = new Person();
-	    p1.setId(1);
-	    p1.setTitle("ランニング");
-	    p1.setBody("公園を3周する");
-	    p1.setBackgroundColor("red");
-	    p1.setStart("2023-11-21T13:29");
-	    p1.setEnd("2023-11-21T15:29");
-	    repository.saveAndFlush(p1);
-	    // ２つ目のダミーデータ作成
-	    Person p2 = new Person();
-	    p2.setId(2);
-	    p2.setTitle("旅行");
-	    p2.setBody("京都巡り");
-	    p2.setBackgroundColor("blue");
-	    p2.setStart("2023-11-12T13:29");
-	    p2.setEnd("2023-11-18T13:29");
-	    repository.saveAndFlush(p2);
-	    
-	    Person p3 = new Person();
-	    p3.setId(3);
-	    p3.setTitle("旅行");
-	    p3.setBody("京都巡り");
-	    p3.setBackgroundColor("blue");
-	    p3.setStart("2023-11-21T13:29");
-	    p3.setEnd("2023-11-18T13:29");
-	    repository.saveAndFlush(p3);
-
-	  }
+	}
 }
