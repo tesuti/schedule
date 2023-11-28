@@ -35,14 +35,12 @@ public class HelloController {
 			@ModelAttribute("formModel") Person Person,
 			ModelAndView mav) {
 		mav.setViewName("create");
-		//		mav.addObject("title", "aaa");
-		//		mav.addObject("msg", "bbb");
 		List<Person> list = repository.findAll();
 		mav.addObject("data", list);
 		return mav;
 	}
 
-	//カレンダーを登録
+	//予定を登録
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView form(
@@ -56,8 +54,6 @@ public class HelloController {
 			res = new ModelAndView("redirect:/");
 		} else {
 			mav.setViewName("create");
-			//			mav.addObject("title", "Hello");
-			//			mav.addObject("msg", "sorry, error is occurred...");
 			Iterable<Person> list = repository.findAll();
 			mav.addObject("datalist", list);
 			res = mav;
@@ -67,7 +63,7 @@ public class HelloController {
 
 	//IDを取得
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public ModelAndView edit(@ModelAttribute Person Person,
+	public ModelAndView edit(@ModelAttribute("formModel") Person Person,
 			@PathVariable int id, ModelAndView mav) {
 		mav.setViewName("edit");
 		Optional<Person> data = repository.findById((long) id);
@@ -75,12 +71,25 @@ public class HelloController {
 		return mav;
 	}
 
+	//取得されたIDのデータを変更
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView update(@ModelAttribute Person Person,
+	public ModelAndView update(
+			@ModelAttribute("formModel") @Validated Person Person,
+			BindingResult result,
 			ModelAndView mav) {
-		repository.saveAndFlush(Person);
-		return new ModelAndView("redirect:/schedulelist");
+		ModelAndView res = null;
+		System.out.println(result.getFieldErrors());
+		if (!result.hasErrors()) {
+			repository.saveAndFlush(Person);
+			res = new ModelAndView("redirect:/schedulelist");
+		} else {
+			mav.setViewName("edit");
+			Iterable<Person> list = repository.findAll();
+			mav.addObject("datalist", list);
+			res = mav;
+		}
+		return res;
 	}
 
 	//IDを取得
@@ -92,6 +101,7 @@ public class HelloController {
 		return mav;
 	}
 
+	//取得されたIDのデータを削除
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView remove(@RequestParam long id, ModelAndView mav) {
@@ -99,6 +109,7 @@ public class HelloController {
 		return new ModelAndView("redirect:/schedulelist");
 	}
 
+	//アプリケーション起動時、ダミーデータ作成
 	@PostConstruct
 	public void init() {
 		// １つ目のダミーデータ作成

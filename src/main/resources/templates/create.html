@@ -18,20 +18,21 @@
 	</div>
 <form method="post" th:action="@{/create}" th:object="${formModel}">
 <!--	<p th:text="${title}"></p>-->
-	<p th:text="${msg}"></p>
-	<div class="mb-3">
-		<label for="name" class="form-label">時間</label>
+	<p th:text="${msg}"></p>		
 		<div class="row">
+			<label for="name" class="form-label">時間</label>
 			<div class="col-6">
-				<input type="datetime-local" class="form-control" name="start" th:value="*{start}">				
+				<div class="mb-3">
+					<input type="datetime-local" class="form-control" name="start" th:value="*{start}">
+					<div th:if="${#fields.hasErrors('start')}" th:errors="*{start}" th:errorclass="err"></div>
+				</div>
 			</div>
 			<div class="col-6">
-				<input type="datetime-local" class="form-control" name="end" th:value="*{end}">
+				<div class="mb-3">
+					<input type="datetime-local" class="form-control" name="end" th:value="*{end}">
+					<div th:if="${#fields.hasErrors('end')}" th:errors="*{end}" th:errorclass="err"></div>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div th:if="${#fields.hasErrors('start')}" th:errors="*{start}" th:errorclass="err"></div>
-			<div th:if="${#fields.hasErrors('end')}" th:errors="*{end}" th:errorclass="err"></div>
 		</div>
 	</div>
 	<div class="row">
@@ -46,11 +47,9 @@
 		<div class="col-6">
 			<div class="mb-3">
 				<label for="name" class="form-label">色</label>
-				<div class="h-auto">
 					<input type="backgroundColor" class="form-control" name="backgroundColor"
 						th:value="*{backgroundColor}">
 					<div th:if="${#fields.hasErrors('backgroundColor')}" th:errors="*{backgroundColor}" th:errorclass="err"></div>
-				</div>
 			</div>
 		</div>
 	</div>
