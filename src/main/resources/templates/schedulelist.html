@@ -12,7 +12,7 @@
 	<div class="row d-flex flex-row">
 			<div class="flex-fill bs-light text-white  border text-center fs-1 col-xs-3 col-lg-3"><a  th:href="@{/schedulelist}" class="text-decoration-none text-secondary">予定一覧</a></div>
 			<div class="flex-fill bs-light text-white border text-center fs-1 col-xs-3 col-lg-3"><a  th:href="@{/}" class="text-decoration-none text-secondary">カレンダー</a></div>
-			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">ユーザ名</div>
+			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">[[${user.getFullname()}]]</div>
 		</div>
 	</div>
 
@@ -41,11 +41,11 @@
     </thead>
 			<tbody>
 				<tr th:each="item : ${data}">
-					<td th:text="${item.title}"></td>
-					<td th:text="${item.body}"></td>
-					<td th:text="${item.backgroundColor}"></td>
-					<td th:text="${item.start}"></td>
-					<td th:text="${item.end}"></td>
+					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.title}"></a></td>
+					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.body}"></a></td>
+					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.backgroundColor}"></a></td>
+					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.start}"></a></td>
+					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.end}"></a></td>
 					<th>						
 						<button class="btn btn-primary" th:attr="onclick='location.href=\'/edit/' + ${item.id} + '\''">編集</button>
 						<button th:attr="onclick='location.href=\'/delete/' + ${item.id} + '\''" class="btn btn-danger">削除</button>

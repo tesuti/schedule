@@ -1,14 +1,18 @@
 package com.example.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.Person;
 import com.example.repository.PersonRepository;
@@ -22,24 +26,37 @@ public class StockController {
 	
 	@Autowired
 	private CalendarService calendarService;
-	
+	@Autowired
+	UserDetailsService userDetailsService;
 	//全件表示
-	   @GetMapping
-	public String schedule(Model model,
-			@ModelAttribute("formModel") Person Person
+//	@RequestMapping(value = "/schedulelist", method = RequestMethod.GET)
+	@GetMapping
+	public ModelAndView schedule(ModelAndView mav,
+			@ModelAttribute("formModel") Person Person,Principal principal,Model model
 			 ) {
-
+		   UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+			model.addAttribute("user", userDetails);
 		List<Person> list = repository.findAll();
-		model.addAttribute("data", list);
-		return "schedulelist";
+		mav.addObject("data", list);
+		return mav;
 	}
-	
+//		@RequestMapping("/create")
+//		public ModelAndView index(
+//				@ModelAttribute("formModel") Person Person,
+//				ModelAndView mav,Principal principal,Model model) {
+//			UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+//			model.addAttribute("user", userDetails);
+//			List<Person> list = repository.findAll();
+//			mav.addObject("data", list);
+//			return mav;
+//		}
 	   @PostMapping
-	public String select(@ModelAttribute("formModel") Person person, Model model) {
-		
+	public ModelAndView select(@ModelAttribute("formModel") Person person, Model model,ModelAndView mav,Principal principal) {
+		   UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+			model.addAttribute("user", userDetails);
 		List<Person> result = calendarService.search(person.getTitle(), person.getStart(), person.getEnd());
-		model.addAttribute("data", result);
+		mav.addObject("data", result);
 		
-		return "schedulelist";
+		return mav;
 	}
 }
