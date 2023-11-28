@@ -33,6 +33,7 @@ public class Person {
 	@NotBlank
 	private String body;
 
+	@NotBlank
 	private String backgroundColor;
 
 	public long getId() {
