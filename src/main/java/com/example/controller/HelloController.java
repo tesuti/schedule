@@ -1,10 +1,14 @@
 package com.example.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.Person;
 import com.example.repository.PersonRepository;
 import com.example.search.CalendarService;
+import com.example.service.UserService;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
@@ -24,7 +29,11 @@ import jakarta.transaction.Transactional;
 public class HelloController {
 	@Autowired
 	PersonRepository repository;
-
+	@Autowired
+	UserDetailsService userDetailsService;
+	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	 private CalendarService calendarService;
 	
@@ -32,8 +41,9 @@ public class HelloController {
 	@RequestMapping("/create")
 	public ModelAndView index(
 			@ModelAttribute("formModel") Person Person,
-			ModelAndView mav) {
-
+			ModelAndView mav,Principal principal,Model model) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", userDetails);
 		List<Person> list = repository.findAll();
 		mav.addObject("data", list);
 		return mav;
@@ -51,8 +61,10 @@ public class HelloController {
 
 	//IDを取得
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public ModelAndView edit(@ModelAttribute Person Person,
-			@PathVariable int id, ModelAndView mav) {
+	public ModelAndView edit(@ModelAttribute Person Person, Principal principal,
+			@PathVariable int id, ModelAndView mav,Model model) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", userDetails);
 		mav.setViewName("edit");
 		Optional<Person> data = repository.findById((long) id);
 		mav.addObject("formModel", data.get());
@@ -70,7 +82,9 @@ public class HelloController {
 
 	//IDを取得
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView delete(@PathVariable int id, ModelAndView mav) {
+	public ModelAndView delete(@PathVariable int id, ModelAndView mav,  Principal principal,Model model) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", userDetails);
 		mav.setViewName("delete");
 		Optional<Person> data = repository.findById((long) id);
 		mav.addObject("formModel", data.get());
@@ -84,8 +98,25 @@ public class HelloController {
 		return new ModelAndView("redirect:/schedulelist");
 	}
 
+	//IDを取得
+	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+	public ModelAndView detail(@ModelAttribute Person Person, Principal principal,
+			@PathVariable int id, ModelAndView mav,Model model) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", userDetails);
+		mav.setViewName("detail");
+		Optional<Person> data = repository.findById((long) id);
+		mav.addObject("formModel", data.get());
+		return mav;
+	}
 
-
+	@RequestMapping(value = "/detail", method = RequestMethod.POST)
+	@Transactional
+	public ModelAndView detail(@ModelAttribute Person Person,
+			ModelAndView mav) {
+		repository.saveAndFlush(Person);
+		return new ModelAndView("redirect:/schedulelist");
+	}
 	  @PostConstruct
 	  public void init(){
 	    // １つ目のダミーデータ作成
