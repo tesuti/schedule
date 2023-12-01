@@ -17,17 +17,16 @@
 	</div>
   
 <form method="post" th:action="@{/create}" th:object="${formModel}">
-		<!--		<style>. {color: red}</style>-->
 		<div class="mb-3">
 			<label for="name" class="form-label">時間</label>
 			<div class="row">
 				<div class="col-6">
 					<input type="datetime-local" class="form-control" name="start" th:value="*{start}">
-					<!--<div th:if="${#fields.hasors('start')}" th:ors="*{start}" th:orclass="">-->
+						<div th:if="${#fields.hasErrors('start')}" th:errors="*{start}" th:errorclass="err"></div>
 				</div>
 				<div class="col-6">
 					<input type="datetime-local" class="form-control" name="end" th:value="*{end}">
-					<!--<div th:if="${#fields.hasors('end')}" th:ors="*{end}" th:orclass="">-->
+					<div th:if="${#fields.hasors('end')}" th:errors="*{end}" th:errorclass="err">
 				</div>
 			</div>
 		</div>
@@ -36,7 +35,7 @@
 				<div class="mb-3">
 					<label for="name" class="form-label">タイトル</label>
 					<input type="text" class="form-control" name="title" th:value="*{title}">
-					<!--<div th:if="${#fields.hasors('title')}" th:ors="*{title}" th:orclass="">-->
+					<div th:if="${#fields.hasors('title')}" th:errors="*{title}" th:errorclass="err">
 				</div>
 			</div>
 	
@@ -45,7 +44,7 @@
 					<label for="name" class="form-label">色</label>
 					<div class="h-auto">
 						<input type="color" value="#ff0000" th:value="*{backgroundColor}"name="backgroundColor"/>
-						<!--<div th:if="${#fields.hasors('backgroundColor')}" th:ors="*{backgroundColor}" th:orclass="">-->
+						<div th:if="${#fields.hasors('backgroundColor')}"th:errors="*{backgroundColor}" th:errorclass="err">
 					</div>
 				</div>
 			</div>
@@ -53,7 +52,7 @@
 		<div class="mb-3">
 			<label for="body" class="form-label">内容</label>
 			<textarea class="form-control" name="body" th:text="*{body}"></textarea>
-			<!--<div th:if="${#fields.hasors('body')}" th:ors="*{body}" th:orclass="">-->
+				<div th:if="${#fields.hasErrors('body')}" th:errors="*{body}" th:errorclass="err"></div>
 		</div>
 		<div class="mb-3">
 			<!--予定登録ボタン-->
