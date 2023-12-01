@@ -124,27 +124,27 @@ public class HelloController {
 	    p1.setId(1);
 	    p1.setTitle("ランニング");
 	    p1.setBody("公園を3周する");
-	    p1.setBackgroundColor("red");
-	    p1.setStart("2023-11-21T13:29");
-	    p1.setEnd("2023-11-21T15:29");
+	    p1.setBackgroundColor("#ff0000");
+	    p1.setStart("2023-12-21T13:29");
+	    p1.setEnd("2023-12-21T15:29");
 	    repository.saveAndFlush(p1);
 	    // ２つ目のダミーデータ作成
 	    Person p2 = new Person();
 	    p2.setId(2);
 	    p2.setTitle("旅行");
 	    p2.setBody("京都巡り");
-	    p2.setBackgroundColor("blue");
-	    p2.setStart("2023-11-12T13:29");
-	    p2.setEnd("2023-11-18T13:29");
+	    p2.setBackgroundColor("#f6b73c");
+	    p2.setStart("2023-12-12T13:29");
+	    p2.setEnd("2023-12-18T13:29");
 	    repository.saveAndFlush(p2);
 	    
 	    Person p3 = new Person();
 	    p3.setId(3);
 	    p3.setTitle("旅行");
 	    p3.setBody("京都巡り");
-	    p3.setBackgroundColor("blue");
-	    p3.setStart("2023-11-21T13:29");
-	    p3.setEnd("2023-11-18T13:29");
+	    p3.setBackgroundColor("#e66465");
+	    p3.setStart("2023-12-21T13:29");
+	    p3.setEnd("2023-12-18T13:29");
 	    repository.saveAndFlush(p3);
 
 	  }

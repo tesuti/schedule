@@ -42,8 +42,8 @@
 			<tbody>
 				<tr th:each="item : ${data}">
 					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.title}"></a></td>
-					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.body}"></a></td>
-					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.backgroundColor}"></a></td>
+					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.body}"></a></td>	
+					<td><input th:href="@{/detail/{id}(id=${item.id})}" type="color" th:value="${item.backgroundColor}" class="color" name="backgroundColor" disabled/></td>
 					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.start}"></a></td>
 					<td><a th:href="@{/detail/{id}(id=${item.id})}" th:text="${item.end}"></a></td>
 					<th>						
@@ -85,6 +85,8 @@
       bottom: 20px;
       right: 20px;
     }
-
+.color{
+	border: none;
+}
 </style>
 </html>

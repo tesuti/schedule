@@ -44,7 +44,7 @@
 				<div class="mb-3">
 					<label for="name" class="form-label">色</label>
 					<div class="h-auto">
-						<input type="backgroundColor" class="form-control" name="backgroundColor"th:value="*{backgroundColor}">
+						<input type="color" value="#ff0000" th:value="*{backgroundColor}"name="backgroundColor"/>
 						<!--<div th:if="${#fields.hasors('backgroundColor')}" th:ors="*{backgroundColor}" th:orclass="">-->
 					</div>
 				</div>
@@ -58,8 +58,8 @@
 		<div class="mb-3">
 			<!--予定登録ボタン-->
 			<div class="text-center d-flex justify-content-evenly">
-			<a th:href="@{/}" class="">戻る</a>
-			<input type="submit" class="btn btn-primary" value="Create">
+			<a th:href="@{/}" class="">＜戻る</a>
+			<input type="submit" class="btn btn-primary" value="登録">
 			</div>
 		</div>
 	</form>
