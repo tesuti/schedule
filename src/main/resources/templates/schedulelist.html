@@ -9,19 +9,10 @@
 
 <body class="container">
 	<div class="py-sm-3">
-
 	<div class="row d-flex flex-row">
 			<div class="flex-fill bs-light text-white  border text-center fs-1 col-xs-3 col-lg-3"><a  th:href="@{/schedulelist}" class="text-decoration-none text-secondary">予定一覧</a></div>
 			<div class="flex-fill bs-light text-white border text-center fs-1 col-xs-3 col-lg-3"><a  th:href="@{/}" class="text-decoration-none text-secondary">カレンダー</a></div>
 			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">[[${user.getFullname()}]]</div>
-
-		<div class="row d-flex flex-row">
-			<div class="flex-fill bs-light text-white  border text-center fs-1 col-xs-3 col-lg-3"><a
-					th:href="@{/schedulelist}" class="text-decoration-none text-secondary">予定一覧</a></div>
-			<div class="flex-fill bs-light text-white border text-center fs-1 col-xs-3 col-lg-3"><a th:href="@{/}"
-					class="text-decoration-none text-secondary">カレンダー</a></div>
-			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">ユーザ名</div>
-
 		</div>
 	</div>
 
@@ -63,7 +54,7 @@
 			</tbody>
 		</table>
 		<div>
-	<a th:href="@{/create}" class="p-1 ">
+	<a th:href="@{/create}" class="p-1">
 	 <button class=" btn btn-primary fixed-button" >＋</button>
 	</a>
 </div>
