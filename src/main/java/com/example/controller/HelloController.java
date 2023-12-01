@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,49 +37,81 @@ public class HelloController {
 	@Autowired
 	private UserService userService;
 	@Autowired
-	 private CalendarService calendarService;
-	
-	//カレンダーデータをすべて表示
+	private CalendarService calendarService;
+
 	@RequestMapping("/create")
-	public ModelAndView index(
+	public ModelAndView create(
 			@ModelAttribute("formModel") Person Person,
+
 			ModelAndView mav,Principal principal,Model model) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", userDetails);
+
+			ModelAndView mav) {
+		mav.setViewName("create");
+
 		List<Person> list = repository.findAll();
 		mav.addObject("data", list);
 		return mav;
 	}
 
-	//カレンダーを登録
+	//予定を登録
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView form(
-			@ModelAttribute("formModel") Person Person,
+			@ModelAttribute("formModel") @Validated Person Person,
+			BindingResult result,
 			ModelAndView mav) {
-		repository.saveAndFlush(Person);
-		return new ModelAndView("redirect:/");
+		ModelAndView res = null;
+		System.out.println(result.getFieldErrors());
+		if (!result.hasErrors()) {
+			repository.saveAndFlush(Person);
+			res = new ModelAndView("redirect:/");
+		} else {
+			mav.setViewName("create");
+			Iterable<Person> list = repository.findAll();
+			mav.addObject("datalist", list);
+			res = mav;
+		}
+		return res;
 	}
 
 	//IDを取得
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+
 	public ModelAndView edit(@ModelAttribute Person Person, Principal principal,
 			@PathVariable int id, ModelAndView mav,Model model) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", userDetails);
+
+	public ModelAndView edit(@ModelAttribute("formModel") Person Person,
+			@PathVariable int id, ModelAndView mav) {
+
 		mav.setViewName("edit");
 		Optional<Person> data = repository.findById((long) id);
 		mav.addObject("formModel", data.get());
 		return mav;
 	}
 
-
+	//取得されたIDのデータを変更
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView update(@ModelAttribute Person Person,
+	public ModelAndView update(
+			@ModelAttribute("formModel") @Validated Person Person,
+			BindingResult result,
 			ModelAndView mav) {
-		repository.saveAndFlush(Person);
-		return new ModelAndView("redirect:/schedulelist");
+		ModelAndView res = null;
+		System.out.println(result.getFieldErrors());
+		if (!result.hasErrors()) {
+			repository.saveAndFlush(Person);
+			res = new ModelAndView("redirect:/schedulelist");
+		} else {
+			mav.setViewName("edit");
+			Iterable<Person> list = repository.findAll();
+			mav.addObject("datalist", list);
+			res = mav;
+		}
+		return res;
 	}
 
 	//IDを取得
@@ -91,12 +125,14 @@ public class HelloController {
 		return mav;
 	}
 
+	//取得されたIDのデータを削除
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView remove(@RequestParam long id, ModelAndView mav) {
 		repository.deleteById(id);
 		return new ModelAndView("redirect:/schedulelist");
 	}
+
 
 	//IDを取得
 	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
@@ -110,6 +146,28 @@ public class HelloController {
 		return mav;
 	}
 
+	//アプリケーション起動時、ダミーデータ作成
+	@PostConstruct
+	public void init() {
+		// １つ目のダミーデータ作成
+		Person p1 = new Person();
+		p1.setId(1);
+		p1.setTitle("ランニング");
+		p1.setBody("公園を3周する");
+		p1.setBackgroundColor("red");
+		p1.setStart("2023-11-21T13:29");
+		p1.setEnd("2023-11-21T15:29");
+		repository.saveAndFlush(p1);
+		// ２つ目のダミーデータ作成
+		Person p2 = new Person();
+		p2.setId(2);
+		p2.setTitle("旅行");
+		p2.setBody("京都巡り");
+		p2.setBackgroundColor("blue");
+		p2.setStart("2023-11-12T13:29");
+		p2.setEnd("2023-11-18T13:29");
+		repository.saveAndFlush(p2);
+
 	@RequestMapping(value = "/detail", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView detail(@ModelAttribute Person Person,
@@ -118,7 +176,7 @@ public class HelloController {
 		return new ModelAndView("redirect:/schedulelist");
 	}
 	  @PostConstruct
-	  public void init(){
+	  public void init1(){
 	    // １つ目のダミーデータ作成
 	    Person p1 = new Person();
 	    p1.setId(1);
@@ -147,5 +205,8 @@ public class HelloController {
 	    p3.setEnd("2023-12-18T13:29");
 	    repository.saveAndFlush(p3);
 
-	  }
+
+
+	}
+
 }

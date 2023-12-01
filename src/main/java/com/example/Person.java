@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "people")
@@ -17,17 +18,22 @@ public class Person {
 	private long id;
 
 	@Column(length = 50, nullable = false)
+	@NotBlank
 	private String title;
 
 	@Column(nullable = false)
+	@NotBlank
 	private String start;
 
 	@Column(nullable = false)
+	@NotBlank
 	private String end1;
 
-	@Column(nullable = false)
+	@Column(length = 250, nullable = false)
+	@NotBlank
 	private String body;
 
+	@NotBlank
 	private String backgroundColor;
 
 	public long getId() {
