@@ -57,7 +57,9 @@ public class HelloController {
 	public ModelAndView form(
 			@ModelAttribute("formModel") @Validated Person Person,
 			BindingResult result,
-			ModelAndView mav) {
+			ModelAndView mav, Principal principal,Model model) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", userDetails);
 		ModelAndView res = null;
 		System.out.println(result.getFieldErrors());
 		if (!result.hasErrors()) {
@@ -90,7 +92,9 @@ public class HelloController {
 	public ModelAndView update(
 			@ModelAttribute("formModel") @Validated Person Person,
 			BindingResult result,
-			ModelAndView mav) {
+			ModelAndView mav, Principal principal,Model model) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", userDetails);
 		ModelAndView res = null;
 		System.out.println(result.getFieldErrors());
 		if (!result.hasErrors()) {
