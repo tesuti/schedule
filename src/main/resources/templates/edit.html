@@ -15,7 +15,7 @@
 					th:href="@{/schedulelist}" class="text-decoration-none text-secondary">予定一覧</a></div>
 			<div class="flex-fill bs-light text-white border text-center fs-1 col-xs-3 col-lg-3"><a th:href="@{/}"
 					class="text-decoration-none text-secondary">カレンダー</a></div>
-			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">[[${user.getFullname()}]]</div>
+			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">ユーザ名</div>
 		</div>
 	</div>
 	<form method="post" th:action="@{/edit}" th:object="${formModel}">
@@ -46,12 +46,9 @@
 				<div class="mb-3">
 					<label for="name" class="form-label">色</label>
 					<div class="h-auto">
-						<input type="backgroundColor" class="form-control" name="backgroundColor"
-							th:value="*{backgroundColor}">
-						<div th:if="${#fields.hasErrors('backgroundColor')}" th:errors="*{backgroundColor}"
-							th:errorclass="err">
-						</div>
-					</div>
+					<input type="color" value="#ff0000" th:value="*{backgroundColor}"name="backgroundColor"/>
+					<div th:if="${#fields.hasErrors('backgroundColor')}" th:errors="*{backgroundColor}" th:errorclass="err"></div>
+			</div>
 				</div>
 			</div>
 		</div>
@@ -61,12 +58,10 @@
 			<textarea class="form-control" name="body" th:text="*{body}"></textarea>
 			<div th:if="${#fields.hasErrors('body')}" th:errors="*{body}" th:errorclass="err">
 			</div>
-			<div class="mb-3">
-				<div class="text-center d-flex justify-content-evenly">
-					<a th:href="@{/schedulelist}" class="">戻る</a>
-					<input type="submit" class="btn btn-primary" value="更新">
-				</div>
-			</div>
+		</div>
+		<div class="text-center d-flex justify-content-evenly">
+			<a onclick="history.back()" class="btn btn-primary">戻る</a>
+			<input type="submit" class="btn btn-primary" value="編集">
 		</div>
 	</form>
 
