@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,10 +55,23 @@ public class HelloController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView form(
-			@ModelAttribute("formModel") Person Person,
-			ModelAndView mav) {
-		repository.saveAndFlush(Person);
-		return new ModelAndView("redirect:/");
+			@ModelAttribute("formModel") @Validated Person Person,
+			BindingResult result,
+			ModelAndView mav, Principal principal,Model model) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", userDetails);
+		ModelAndView res = null;
+		System.out.println(result.getFieldErrors());
+		if (!result.hasErrors()) {
+			repository.saveAndFlush(Person);
+			res = new ModelAndView("redirect:/");
+		} else {
+			mav.setViewName("create");
+			Iterable<Person> list = repository.findAll();
+			mav.addObject("datalist", list);
+			res = mav;
+		}
+		return res;
 	}
 
 	//IDを取得
@@ -74,10 +89,24 @@ public class HelloController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView update(@ModelAttribute Person Person,
-			ModelAndView mav) {
-		repository.saveAndFlush(Person);
-		return new ModelAndView("redirect:/schedulelist");
+	public ModelAndView update(
+			@ModelAttribute("formModel") @Validated Person Person,
+			BindingResult result,
+			ModelAndView mav, Principal principal,Model model) {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+		model.addAttribute("user", userDetails);
+		ModelAndView res = null;
+		System.out.println(result.getFieldErrors());
+		if (!result.hasErrors()) {
+			repository.saveAndFlush(Person);
+			res = new ModelAndView("redirect:/schedulelist");
+		} else {
+			mav.setViewName("edit");
+			Iterable<Person> list = repository.findAll();
+			mav.addObject("datalist", list);
+			res = mav;
+		}
+		return res;
 	}
 
 	//IDを取得
