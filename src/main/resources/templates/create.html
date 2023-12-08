@@ -7,8 +7,13 @@
 	<style>.err { color: red}</style>
 </head>
 <body class="container">
+	<form th:action="@{/logout}" method="post" >
+        <input type="submit" name="logout" class="btn btn-secondary mt-2" value="ログアウト"/>
+    </form>
 	<div class="py-sm-3">
+
 		<div class="row d-flex flex-row">
+
 			<div class="flex-fill bs-light text-white  border text-center fs-1 col-xs-3 col-lg-3"><a
 					th:href="@{/schedulelist}" class="text-decoration-none text-secondary">予定一覧</a></div>
 			<div class="flex-fill bs-light text-white border text-center fs-1 col-xs-3 col-lg-3"><a th:href="@{/}"
@@ -61,7 +66,7 @@
 	<div class="mb-3">
 		<!--予定登録ボタン-->
 		<div class="text-center d-flex justify-content-evenly">
-			<a onclick="history.back()" class="btn btn-primary">戻る</a>
+			<a onclick="history.back()" class="btn text-primary">＜戻る</a>
 			<input type="submit" class="btn btn-primary" value="登録">
 		</div>
 	</div>

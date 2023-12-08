@@ -6,7 +6,9 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 	<body class="container">
-
+	<form th:action="@{/logout}" method="post" >
+        <input type="submit" name="logout" class="btn btn-secondary mt-2" value="ログアウト"/>
+    </form>
 	<div class="py-sm-3">
 	<div class="row d-flex flex-row">
 			<div class="flex-fill bs-light text-white  border text-center fs-1 col-xs-3 col-lg-3"><a  th:href="@{/schedulelist}" class="text-decoration-none text-secondary">予定一覧</a></div>
@@ -56,7 +58,7 @@
 				<!--			<div th:if="${#fields.hasors('body')}" th:ors="*{body}" th:orclass="">-->
 			</div>
 			<div class="text-center d-flex justify-content-evenly">
-				<a th:href="@{/schedulelist}" class="">戻る</a>
+				<a onclick="history.back()" class="btn text-primary">＜戻る</a>
 				
 
 	<a  th:attr="onclick='location.href=\'/edit/' + ${id} + '\''" class="btn btn-primary">編集</a>

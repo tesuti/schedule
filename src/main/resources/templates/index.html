@@ -42,7 +42,9 @@
 
 </head>
 <body class="container">     
-
+<form th:action="@{/logout}" method="post">
+        <input type="submit" name="logout" class="btn btn-secondary" value="ログアウト"/>
+    </form>
 	  
 		<div class="py-sm-3">
 		<div class="row d-flex flex-row">
