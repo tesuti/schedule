@@ -1,10 +1,14 @@
 package com.example;
 
+import com.example.model.User;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -16,7 +20,11 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
 	private long id;
-
+	
+	@ManyToOne // 多対一の関連性
+	@JoinColumn(name = "user_id") // 外部キーのカラム名
+	  private User user;
+	  
 	@Column(length = 50, nullable = false)
 	@NotBlank
 	private String title;
@@ -83,4 +91,11 @@ public class Person {
 	public void setBody(String body) {
 		this.body = body;
 	}
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
