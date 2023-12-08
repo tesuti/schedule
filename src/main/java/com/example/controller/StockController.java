@@ -40,16 +40,7 @@ public class StockController {
 		mav.addObject("data", list);
 		return mav;
 	}
-//		@RequestMapping("/create")
-//		public ModelAndView index(
-//				@ModelAttribute("formModel") Person Person,
-//				ModelAndView mav,Principal principal,Model model) {
-//			UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
-//			model.addAttribute("user", userDetails);
-//			List<Person> list = repository.findAll();
-//			mav.addObject("data", list);
-//			return mav;
-//		}
+
 	   @PostMapping
 	public ModelAndView select(@ModelAttribute("formModel") Person person, Model model,ModelAndView mav,Principal principal) {
 		   UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
