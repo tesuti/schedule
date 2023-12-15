@@ -29,7 +29,6 @@ public class StockController {
 	@Autowired
 	UserDetailsService userDetailsService;
 	//全件表示
-//	@RequestMapping(value = "/schedulelist", method = RequestMethod.GET)
 	@GetMapping
 	public ModelAndView schedule(ModelAndView mav,
 			@ModelAttribute("formModel") Person Person,Principal principal,Model model
