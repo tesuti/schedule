@@ -13,18 +13,18 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "people")
+@Table(name = "Event")
 public class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
+	@Column(name = "id")
 	private long id;
-	
+
 	@ManyToOne // 多対一の関連性
 	@JoinColumn(name = "user_id") // 外部キーのカラム名
-	  private User user;
-	  
+	private User user;
+
 	@Column(length = 50, nullable = false)
 	@NotBlank
 	private String title;
@@ -41,7 +41,6 @@ public class Person {
 	@NotBlank
 	private String body;
 
-	
 	private String backgroundColor;
 
 	public long getId() {
@@ -91,11 +90,12 @@ public class Person {
 	public void setBody(String body) {
 		this.body = body;
 	}
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

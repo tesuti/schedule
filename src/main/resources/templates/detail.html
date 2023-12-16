@@ -1,70 +1,71 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>予定詳細画面</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-	<body class="container">
-	<form th:action="@{/logout}" method="post" >
-        <input type="submit" name="logout" class="btn btn-secondary mt-2" value="ログアウト"/>
-    </form>
+
+<body class="container">
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" name="logout" class="btn btn-secondary mt-2" value="ログアウト" />
+	</form>
 	<div class="py-sm-3">
-	<div class="row d-flex flex-row">
-			<div class="flex-fill bs-light text-white  border text-center fs-1 col-xs-3 col-lg-3"><a  th:href="@{/schedulelist}" class="text-decoration-none text-secondary">予定一覧</a></div>
-			<div class="flex-fill bs-light text-white border text-center fs-1 col-xs-3 col-lg-3"><a  th:href="@{/}" class="text-decoration-none text-secondary">カレンダー</a></div>
-			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">[[${user.getFullname()}]]</div>
+		<div class="row d-flex flex-row">
+			<div class="flex-fill bs-light text-white  border text-center fs-1 col-xs-3 col-lg-3"><a
+					th:href="@{/schedulelist}" class="text-decoration-none text-secondary">予定一覧</a></div>
+			<div class="flex-fill bs-light text-white border text-center fs-1 col-xs-3 col-lg-3"><a th:href="@{/}"
+					class="text-decoration-none text-secondary">カレンダー</a></div>
+			<div class="flex-fill bg-secondary text-white border text-center fs-1 col-xs-3 col-lg-3">
+				[[${user.getFullname()}]]</div>
 		</div>
 	</div>
-	
+
 	<h1>予定詳細画面</h1>
 	<form method="post" th:action="@{/delete}" th:object="${formModel}">
-<input type="hidden" name="id" th:value="*{id}" />
+<!--		<input type="hidden" name="id" th:value="*{id}">-->
 		<div class="mb-3 py-sm-3 ">
-				<div class="mb-3">
-			<label for="name" class="form-label">時間</label>
-			<div class="row">
-				<div class="col-6">
-					<input type="datetime-local" class="form-control" name="start" th:value="*{start}"disabled>
-					<!--					<div th:if="${#fields.hasors('start')}" th:ors="*{start}" th:orclass="">-->
-				</div>
-				<div class="col-6">
-					<input type="datetime-local" class="form-control" name="end" th:value="*{end}"disabled>
-					<!--					<div th:if="${#fields.hasors('end')}" th:ors="*{end}" th:orclass="">-->
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-6">
-				<div class="mb-3">
-					<label for="name" class="form-label">タイトル</label>
-					<input type="text" class="form-control" name="title" th:value="*{title}"disabled>
-					<!--						<div th:if="${#fields.hasors('title')}" th:ors="*{title}" th:orclass="">-->
-				</div>
-			</div>
-	
-			<div class="col-6">
-				<div class="mb-3">
-					<label for="name" class="form-label">色</label>
-					<div class="h-auto">
-						<input type="color"  th:value="*{backgroundColor}"name="backgroundColor"disabled/>
-						<!--							<div th:if="${#fields.hasors('backgroundColor')}" th:ors="*{backgroundColor}" th:orclass="">-->
+			<div class="mb-3">
+				<label for="name" class="form-label">時間</label>
+				<div class="row">
+					<div class="col-6">
+						<input type="datetime-local" class="form-control" name="start" th:value="*{start}" disabled>
+					</div>
+					<div class="col-6">
+						<input type="datetime-local" class="form-control" name="end" th:value="*{end}" disabled>
 					</div>
 				</div>
 			</div>
-			<div class="mb-3">
-				<label for="body" class="form-label">内容</label>
-				<textarea class="form-control" name="body" th:text="*{body}"disabled></textarea>
-				<!--			<div th:if="${#fields.hasors('body')}" th:ors="*{body}" th:orclass="">-->
-			</div>
-			<div class="text-center d-flex justify-content-evenly">
-				<a onclick="history.back()" class="btn text-primary">＜戻る</a>
-				
+			<div class="row">
+				<div class="col-6">
+					<div class="mb-3">
+						<label for="name" class="form-label">タイトル</label>
+						<input type="text" class="form-control" name="title" th:value="*{title}" disabled>
+					</div>
+				</div>
 
-	<a  th:attr="onclick='location.href=\'/edit/' + ${id} + '\''" class="btn btn-primary">編集</a>
-	<a  th:attr="onclick='location.href=\'/delete/' + ${id} + '\''" class="btn btn-danger">削除</a>			
+				<div class="col-6">
+					<div class="mb-3">
+						<label for="name" class="form-label">色</label>
+						<div class="h-auto">
+							<input type="color" th:value="*{backgroundColor}" name="backgroundColor" disabled />
+						</div>
+					</div>
+				</div>
+				<div class="mb-3">
+					<label for="body" class="form-label">内容</label>
+					<textarea class="form-control" name="body" th:text="*{body}" disabled></textarea>
+				</div>
+				<div class="text-center d-flex justify-content-evenly">
+					<a onclick="history.back()" class="btn text-primary">＜戻る</a>
+
+
+					<a th:attr="onclick='location.href=\'/edit/' + ${id} + '\''" class="btn btn-primary">編集</a>
+					<a th:attr="onclick='location.href=\'/delete/' + ${id} + '\''" class="btn btn-danger">削除</a>
+				</div>
 			</div>
-		</div>
 	</form>
-	</body>
+</body>
+
 </html>

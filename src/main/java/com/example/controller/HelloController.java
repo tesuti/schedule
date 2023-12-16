@@ -32,17 +32,17 @@ public class HelloController {
 	PersonRepository repository;
 	@Autowired
 	UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	private UserService userService;
 	@Autowired
-	 private CalendarService calendarService;
-	
+	private CalendarService calendarService;
+
 	//カレンダーデータをすべて表示
 	@RequestMapping("/create")
 	public ModelAndView index(
 			@ModelAttribute("formModel") Person Person,
-			ModelAndView mav,Principal principal,Model model) {
+			ModelAndView mav, Principal principal, Model model) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", userDetails);
 		List<Person> list = repository.findAll();
@@ -53,10 +53,10 @@ public class HelloController {
 	//カレンダーを登録
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	@Transactional
-	public ModelAndView form(
+	public ModelAndView create(
 			@ModelAttribute("formModel") @Validated Person Person,
 			BindingResult result,
-			ModelAndView mav, Principal principal,Model model) {
+			ModelAndView mav, Principal principal, Model model) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", userDetails);
 		ModelAndView res = null;
@@ -76,7 +76,7 @@ public class HelloController {
 	//IDを取得
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView edit(@ModelAttribute Person Person, Principal principal,
-			@PathVariable int id, ModelAndView mav,Model model) {
+			@PathVariable int id, ModelAndView mav, Model model) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", userDetails);
 		mav.setViewName("edit");
@@ -85,13 +85,12 @@ public class HelloController {
 		return mav;
 	}
 
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	@Transactional
 	public ModelAndView update(
 			@ModelAttribute("formModel") @Validated Person Person,
 			BindingResult result,
-			ModelAndView mav, Principal principal,Model model) {
+			ModelAndView mav, Principal principal, Model model) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", userDetails);
 		ModelAndView res = null;
@@ -110,7 +109,7 @@ public class HelloController {
 
 	//IDを取得
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView delete(@PathVariable int id, ModelAndView mav,  Principal principal,Model model) {
+	public ModelAndView delete(@PathVariable int id, ModelAndView mav, Principal principal, Model model) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", userDetails);
 		mav.setViewName("delete");
@@ -129,7 +128,7 @@ public class HelloController {
 	//IDを取得
 	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	public ModelAndView detail(@ModelAttribute Person Person, Principal principal,
-			@PathVariable int id, ModelAndView mav,Model model) {
+			@PathVariable int id, ModelAndView mav, Model model) {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", userDetails);
 		mav.setViewName("detail");
