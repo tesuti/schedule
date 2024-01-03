@@ -31,11 +31,11 @@ public class Person {
 
 	@Column(nullable = false)
 	@NotBlank
-	private String start;
+	public String start;
 
 	@Column(nullable = false)
 	@NotBlank
-	private String end1;
+	public String end1;
 
 	@Column(length = 250, nullable = false)
 	@NotBlank

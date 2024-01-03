@@ -60,6 +60,20 @@ public class HelloController {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
 		model.addAttribute("user", userDetails);
 		ModelAndView res = null;
+		
+		//開始時間より遅い時間にするとエラーを表示
+	    try {
+	        
+	        if (Person.start.compareTo(Person.end1) > 0) {
+	            throw new AlreadyReservedException("開始時間より遅い時間に設定してください");
+	        }
+
+	        res = new ModelAndView("redirect:/");
+	    } catch (AlreadyReservedException e) {
+	        result.rejectValue("end", "error.end", e.getMessage());
+	        res = new ModelAndView("redirect:/create");
+	    }
+		
 		System.out.println(result.getFieldErrors());
 		if (!result.hasErrors()) {
 			repository.saveAndFlush(Person);
