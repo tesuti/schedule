@@ -74,7 +74,7 @@ public class HelloController {
 	        res = new ModelAndView("redirect:/create");
 	    }
 		
-		System.out.println(result.getFieldErrors());
+
 		if (!result.hasErrors()) {
 			repository.saveAndFlush(Person);
 			res = new ModelAndView("redirect:/");
@@ -110,6 +110,29 @@ public class HelloController {
 		model.addAttribute("user", userDetails);
 		ModelAndView res = null;
 		System.out.println(result.getFieldErrors());
+//		if (!result.hasErrors()) {
+//			repository.saveAndFlush(Person);
+//			res = new ModelAndView("redirect:/schedulelist");
+//		} else {
+//			mav.setViewName("edit");
+//			Iterable<Person> list = repository.findAll();
+//			mav.addObject("datalist", list);
+//			res = mav;
+//		}
+		//開始時間より遅い時間にするとエラーを表示
+	    try {
+	        
+	        if (Person.start.compareTo(Person.end1) > 0) {
+	            throw new AlreadyReservedException("開始時間より遅い時間に設定してください");
+	        }
+
+	        res = new ModelAndView("redirect:/schedulelist");
+	    } catch (AlreadyReservedException e) {
+	        result.rejectValue("end", "error.end", e.getMessage());
+	        res = new ModelAndView("redirect:/create");
+	    }
+		
+
 		if (!result.hasErrors()) {
 			repository.saveAndFlush(Person);
 			res = new ModelAndView("redirect:/schedulelist");
