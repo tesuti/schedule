@@ -20,17 +20,20 @@
             <form th:action="@{/registration}" method="post" role="form" th:object="${user}">
                 <div class="form-group">
                     <label for="fullname">名前:</label>
-                    <input th:field="*{fullname}" type="text" class="form-control" id="fullname" name="fullname"  required>
+                    <input th:field="*{fullname}" type="text" class="form-control" id="fullname" name="fullname"  >
+                    <div class="text-danger" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}" th:errorclass="err"></div>
                 </div>
 
                 <div class="form-group mt-4">
                     <label for="email">メールアドレス:</label>
-                    <input th:field="*{email}" type="email" class="form-control" id="email" name="email" required>
+                    <input th:field="*{email}" type="email" class="form-control" id="email" name="email" >
+                      <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="err"></div>
                 </div>
 
                 <div class="form-group mt-4">
                     <label for="password">パスワード:</label>
-                    <input th:field="*{password}" type="password" class="form-control" id="password" name="password"  required>
+                    <input th:field="*{password}" type="password" class="form-control" id="password" name="password"  >
+                <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="err"></div>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block mt-4">作成</button>

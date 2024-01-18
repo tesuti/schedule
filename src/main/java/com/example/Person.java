@@ -26,19 +26,19 @@ public class Person {
 	  private User user;
 	  
 	@Column(length = 50, nullable = false)
-	@NotBlank
+	@NotBlank(message = "タイトルを入力してください")
 	private String title;
 
 	@Column(nullable = false)
-	@NotBlank
+	@NotBlank(message = "開始時間を入力してください")
 	public String start;
 
 	@Column(nullable = false)
-	@NotBlank
+	@NotBlank(message = "終了時間を入力してください")
 	public String end1;
 
 	@Column(length = 250, nullable = false)
-	@NotBlank
+	@NotBlank(message = "内容を入力してください")
 	private String body;
 
 	
